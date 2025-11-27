@@ -3,11 +3,13 @@ from ipwhois import IPWhois
 import whois
 import json
 
+from typing import Any
+
 # Initialize FastMCP server
 mcp = FastMCP("whois-server")
 
 @mcp.tool(annotations={"readOnlyHint": True})
-def lookup_ip(ip_address: str) -> str:
+def lookup_ip(ip_address: str) -> Any:
     """
     Perform a WHOIS lookup for an IP address.
     
@@ -15,17 +17,15 @@ def lookup_ip(ip_address: str) -> str:
         ip_address: The IP address to lookup (e.g., "8.8.8.8").
         
     Returns:
-        A JSON string containing the WHOIS information.
+        The WHOIS information as a dictionary.
     """
     try:
-        obj = IPWhois(ip_address)
-        results = obj.lookup_rdap(depth=1)
-        return json.dumps(results, indent=2, default=str)
+        return IPWhois(ip_address).lookup_rdap(depth=1)
     except Exception as e:
         return f"Error performing IP WHOIS lookup: {str(e)}"
 
 @mcp.tool(annotations={"readOnlyHint": True})
-def lookup_domain(domain: str) -> str:
+def lookup_domain(domain: str) -> Any:
     """
     Perform a WHOIS lookup for a domain name.
     
@@ -33,12 +33,10 @@ def lookup_domain(domain: str) -> str:
         domain: The domain name to lookup (e.g., "google.com").
         
     Returns:
-        A JSON string containing the WHOIS information.
+        The WHOIS information as a dictionary.
     """
     try:
-        w = whois.whois(domain)
-        # Convert the WhoisEntry object to a dictionary
-        return json.dumps(w, indent=2, default=str)
+        return whois.whois(domain)
     except Exception as e:
         return f"Error performing Domain WHOIS lookup: {str(e)}"
 
