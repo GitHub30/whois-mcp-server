@@ -3,6 +3,11 @@
 
 A Model Context Protocol (MCP) server that provides WHOIS lookup capabilities for IP addresses and domain names. Built with [FastMCP](https://github.com/jlowin/fastmcp), `ipwhois`, and `python-whois`.
 
+# MCP Server URL
+```
+https://whois-mcp.fastmcp.app/mcp
+```
+
 ## Features
 
 - **IP Lookup**: Retrieve WHOIS information for IP addresses using `lookup_ip`.
