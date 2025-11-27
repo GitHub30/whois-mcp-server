@@ -1,10 +1,10 @@
 import sys
 import json
-from server import _lookup_ip, _lookup_domain
+from server import lookup_ip, lookup_domain
 
 def test_lookup_ip():
     print("Testing lookup_ip with 8.8.8.8...")
-    result = _lookup_ip("8.8.8.8")
+    result = lookup_ip.fn("8.8.8.8")
     try:
         data = json.loads(result)
         print("Success! Result snippet:")
@@ -17,7 +17,7 @@ def test_lookup_ip():
 
 def test_lookup_domain():
     print("Testing lookup_domain with google.com...")
-    result = _lookup_domain("google.com")
+    result = lookup_domain.fn("google.com")
     try:
         data = json.loads(result)
         print("Success! Result snippet:")
