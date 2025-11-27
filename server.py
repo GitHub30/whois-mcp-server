@@ -22,7 +22,7 @@ def _lookup_domain(domain: str) -> str:
     except Exception as e:
         return f"Error performing Domain WHOIS lookup: {str(e)}"
 
-@mcp.tool()
+@mcp.tool(annotations={"readOnlyHint": True})
 def lookup_ip(ip_address: str) -> str:
     """
     Perform a WHOIS lookup for an IP address.
@@ -35,7 +35,7 @@ def lookup_ip(ip_address: str) -> str:
     """
     return _lookup_ip(ip_address)
 
-@mcp.tool()
+@mcp.tool(annotations={"readOnlyHint": True})
 def lookup_domain(domain: str) -> str:
     """
     Perform a WHOIS lookup for a domain name.
