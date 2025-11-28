@@ -1,6 +1,6 @@
 from fastmcp import FastMCP
 from ipwhois import IPWhois
-import whois
+import whoisit
 import json
 
 from typing import Any
@@ -36,7 +36,9 @@ def lookup_domain(domain: str) -> Any:
         The WHOIS information as a dictionary.
     """
     try:
-        return whois.whois(domain)
+        whoisit.bootstrap()
+        whois_data = whoisit.domain(domain)
+        return whois_data.__dict__ if hasattr(whois_data, '__dict__') else str(whois_data)
     except Exception as e:
         return f"Error performing Domain WHOIS lookup: {str(e)}"
 
