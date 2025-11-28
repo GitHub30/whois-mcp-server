@@ -1,7 +1,6 @@
 from fastmcp import FastMCP
 from ipwhois import IPWhois
-import subprocess
-import shutil
+import whois
 import json
 
 from typing import Any
@@ -37,19 +36,7 @@ def lookup_domain(domain: str) -> Any:
         The WHOIS information as a dictionary.
     """
     try:
-        # Ensure `whois` command is available on the system
-        if shutil.which("whois") is None:
-            return "Error: 'whois' command not found on system."
-
-        # Run the system `whois` command and return its stdout
-        result = subprocess.run(["whois", domain], capture_output=True, text=True, timeout=15)
-        if result.returncode != 0:
-            stderr = result.stderr.strip()
-            if stderr:
-                return f"Error running whois command: {stderr}"
-            return f"whois command failed with exit code {result.returncode}"
-
-        return result.stdout
+        return whois.whois(domain)
     except Exception as e:
         return f"Error performing Domain WHOIS lookup: {str(e)}"
 
